@@ -1,0 +1,22 @@
+# Ambiente
+.venv/
+__pycache__/
+*.pyc
+
+# Dados (baixados/gerados localmente; ver README)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Jupyter / modelos
+.ipynb_checkpoints/
+checkpoints/
+*.ckpt
+*.pt
+*.bin
+*.safetensors
+
+# Ferramentas locais
+.vscode/
+.idea/
