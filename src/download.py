@@ -36,13 +36,18 @@ def sha256_of(path: Path, chunk_size: int = 1 << 20) -> str:
     return h.hexdigest()
 
 
+def _show(path: Path) -> str:
+    """Caminho relativo à raiz do projeto (evita expor caminhos locais nas saídas do notebook)."""
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+
+
 def download(dest_dir: Path = RAW_DIR, force: bool = False, timeout: int = 120) -> Path:
     """Baixa o CSV para `dest_dir` e valida o hash. Retorna o caminho do arquivo."""
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / FILENAME
     if dest.exists() and not force:
         if sha256_of(dest) == SHA256:
-            print(f"Arquivo já existe e confere com o SHA-256: {dest}")
+            print(f"Arquivo já existe e confere com o SHA-256: {_show(dest)}")
             return dest
         print("Arquivo existente com hash diferente; baixando novamente.")
 
@@ -59,7 +64,7 @@ def download(dest_dir: Path = RAW_DIR, force: bool = False, timeout: int = 120) 
         tmp.unlink(missing_ok=True)
         raise ValueError(f"SHA-256 inesperado: {digest} (esperado {SHA256})")
     tmp.replace(dest)
-    print(f"OK: {dest} ({dest.stat().st_size / 1e6:.1f} MB)")
+    print(f"OK: {_show(dest)} ({dest.stat().st_size / 1e6:.1f} MB)")
     return dest
 
 

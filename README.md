@@ -85,6 +85,12 @@ leva cerca de 1 a 2 minutos numa máquina comum e gera:
 
 As funções de `src/` têm *doctests*: `python -m doctest src/*.py`.
 
+> **Windows: erro `OSError: [Errno 2] No such file or directory` no `pip install`.** O pacote `jupyterlab`
+> tem arquivos com caminhos muito longos. Se o repositório estiver numa pasta de caminho longo, o
+> Windows ultrapassa o limite de 260 caracteres. Clone o projeto num caminho mais curto (por exemplo,
+> `C:\projetos\`) ou habilite o suporte a caminhos longos do Windows
+> (<https://pip.pypa.io/warnings/enable-long-paths>).
+
 ## Estrutura
 
 ```
