@@ -29,7 +29,8 @@ def rating_to_sentiment(rating: int) -> str:
 # Normalização (texto para o BERTimbau: mantém maiúsculas, acentos e pontuação)
 # ---------------------------------------------------------------------------
 # Sequências típicas de UTF-8 lido como Latin-1/CP1252 ("Ã©" no lugar de "é").
-_MOJIBAKE = re.compile(r"Ã[\x80-\xbf¡-¿]|â€|Â[\x80-\xbf ]")
+# ("Â " e "Ã" seguidos de letra comum não entram: são texto legítimo em maiúsculas, ex.: "IMÃ", "NÃO".)
+_MOJIBAKE = re.compile(r"Ã[\x80-\xbf¡-¿]|â€|Â[\x80-\xbf]")
 # Caracteres de controle e de largura zero (BOM, ZWSP etc.)
 _INVISIBLE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f​-‏  ⁠﻿]")
 _WHITESPACE = re.compile(r"\s+")
